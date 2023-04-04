@@ -5,6 +5,7 @@ import { PhotoCamera } from "@mui/icons-material";
 import axios from "axios";
 const FileUpload = () => {
   const [file, setFile] = React.useState("");
+  
   const handleClick = async (e) => {
     e.preventDefault();
     // setFile(e.target.files[0]);
@@ -15,7 +16,7 @@ const FileUpload = () => {
     formData.append("name", fileName);
     formData.append("file", file);
     await axios
-      .post("http://localhost:7000/upload", formData, {
+      .post("http://localhost:5000/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

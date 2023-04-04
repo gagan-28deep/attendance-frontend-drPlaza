@@ -1,6 +1,27 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import NewEmployyeForm from "./NewEmployyeForm";
 
 const Attendance = () => {
+  const [shifts, setShifts] = React.useState([]);
+  const [show, setShow] = React.useState(false);
+  // Get all shifts
+  useEffect(() => {
+    async function fetchData() {
+      let res = await axios.get(
+        "http://localhost:5000/api/auth/get-all-users-login"
+      );
+      console.log("Res ->", res.data);
+      // setShifts(res?.data?.shifts);
+      console.log("Shifts ->", shifts);
+    }
+    fetchData();
+  }, []);
+
+  // Handle Click for New Employee
+  const handleClick = () => {
+    setShow(!show);
+  };
   return (
     <section class="container px-4 mx-auto py-4">
       <div class="flex items-center justify-between">
@@ -9,16 +30,24 @@ const Attendance = () => {
             Employees
           </h2>
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">
-            This is a list of all employees. You can add new employees, edit or
-            delete existing ones.
+            {/* This is a list of all employees. You can add new employees, edit or
+            delete existing ones. */}
           </p>
         </div>
         <div>
-          <button class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold leading-7 text-white hover:bg-indigo-500">
+          <button
+            onClick={handleClick}
+            class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold leading-7 text-white hover:bg-indigo-500"
+          >
             Add
           </button>
         </div>
       </div>
+      {/* TO add new Employees */}
+
+      {show && <NewEmployyeForm />}
+      {/* Table */}
+
       <div class="flex flex-col mt-6">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -30,13 +59,13 @@ const Attendance = () => {
                       scope="col"
                       class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-                      <span>Employee</span>
+                      <span>Employee Name</span>
                     </th>
                     <th
                       scope="col"
                       class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-                      Title
+                      Number
                     </th>
                     <th
                       scope="col"
@@ -55,103 +84,61 @@ const Attendance = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                  <tr class="divide-x divide-gray-200">
-                    <td class="py-4 px-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                          <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1160&amp;q=80"
-                            alt=""
-                          />
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900 dark:text-white">
-                            John Doe
-                          </div>
-                          <div class="text-sm text-gray-500 dark:text-gray-300">
-                            john@devui.com
+
+                {shifts.map((shift) => (
+                  <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                    <tr class="divide-x divide-gray-200">
+                      <td class="py-4 px-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10"></div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">
+                              {shift.name}
+                            </div>
+                            <div class="text-sm text-gray-500 dark:text-gray-300"></div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="px-12 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900 dark:text-white">
-                        Front-end Developer
-                      </div>
-                      <div class="text-sm text-gray-500 dark:text-gray-300">
-                        Engineering
-                      </div>
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap">
-                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                      Developer
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
-                        class="text-gray-500 dark:text-gray-300 hover:text-indigo-600"
-                      >
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr class="divide-x divide-gray-200">
-                    <td class="py-4 px-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                          <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=928&amp;q=80"
-                            alt=""
-                          />
+                      </td>
+                      <td class="px-12 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900 dark:text-white">
+                          {shift.number}
                         </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900 dark:text-white">
-                            Jane Doe
-                          </div>
-                          <div class="text-sm text-gray-500 dark:text-gray-300">
-                            jane@devui.com
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-12 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900 dark:text-white">
-                        Back-end Developer
-                      </div>
-                      <div class="text-sm text-gray-500 dark:text-gray-300">
-                        Engineering
-                      </div>
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap">
-                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                      CTO
-                    </td>
-                    <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
-                        class="text-gray-500 dark:text-gray-300 hover:text-indigo-600"
-                      >
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
+                        <div class="text-sm text-gray-500 dark:text-gray-300"></div>
+                      </td>
+                      {shift.status === "active" ? (
+                        <td class="px-4 py-4 whitespace-nowrap">
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            {shift.status}
+                          </span>
+                        </td>
+                      ) : (
+                        <td class="px-4 py-4 whitespace-nowrap">
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            {shift.status}
+                          </span>
+                        </td>
+                      )}
+                      <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                        {shift.role}
+                      </td>
+                      <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a
+                          href="#"
+                          class="text-gray-500 dark:text-gray-300 hover:text-indigo-600"
+                        >
+                          Edit
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
               </table>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Table ends */}
       <div class="flex items-center justify-between mt-6">
         <a
           href="#"
