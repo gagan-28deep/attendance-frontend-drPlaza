@@ -42,10 +42,14 @@ const CheckIn = () => {
   const handleClick = async () => {
     try {
       let res = await axios.post("http://localhost:5000/api/auth/check-in", {
-        id: user._id,
+        id: user.id,
         location: JSON.stringify(location),
       });
       console.log(res);
+      if (res.status === 200) {
+        alert("You have been marked present!");
+        navigate("/");
+      }
     } catch (error) {}
     // alert("You have been marked present!");
 

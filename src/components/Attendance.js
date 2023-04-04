@@ -12,8 +12,9 @@ const Attendance = () => {
         "http://localhost:5000/api/auth/get-all-users-login"
       );
       console.log("Res ->", res.data);
+      setShifts(res.data?.result);
       // setShifts(res?.data?.shifts);
-      console.log("Shifts ->", shifts);
+      // console.log("Shifts ->", shifts);
     }
     fetchData();
   }, []);
@@ -67,20 +68,18 @@ const Attendance = () => {
                     >
                       Number
                     </th>
-                    <th
-                      scope="col"
-                      class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                    >
-                      Status
-                    </th>
+
                     <th
                       scope="col"
                       class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       Role
                     </th>
-                    <th scope="col" class="relative py-3.5 px-4">
-                      <span class="sr-only">Edit</span>
+                    <th
+                      scope="col"
+                      class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                    >
+                      Login Date
                     </th>
                   </tr>
                 </thead>
@@ -105,29 +104,12 @@ const Attendance = () => {
                         </div>
                         <div class="text-sm text-gray-500 dark:text-gray-300"></div>
                       </td>
-                      {shift.status === "active" ? (
-                        <td class="px-4 py-4 whitespace-nowrap">
-                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            {shift.status}
-                          </span>
-                        </td>
-                      ) : (
-                        <td class="px-4 py-4 whitespace-nowrap">
-                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                            {shift.status}
-                          </span>
-                        </td>
-                      )}
+
                       <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                         {shift.role}
                       </td>
-                      <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a
-                          href="#"
-                          class="text-gray-500 dark:text-gray-300 hover:text-indigo-600"
-                        >
-                          Edit
-                        </a>
+                      <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                        {shift.logintime}
                       </td>
                     </tr>
                   </tbody>

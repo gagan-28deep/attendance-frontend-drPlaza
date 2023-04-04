@@ -4,6 +4,7 @@ import Attendance from "../components/Attendance";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import CheckIn from "../components/CheckIn";
+import AllUsers from "../components/AllUsers";
 const FileUpload = React.lazy(() => import("../components/FileUpload"));
 
 const Routing = () => {
@@ -46,6 +47,14 @@ const Routing = () => {
         element={
           <Suspense fallback={<div>Loading...</div>}>
             <CheckIn />
+          </Suspense>
+        }
+      />
+      <Route
+        path="all-users"
+        element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <AllUsers />
           </Suspense>
         }
       />
