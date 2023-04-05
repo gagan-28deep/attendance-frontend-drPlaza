@@ -5,7 +5,7 @@ import { PhotoCamera } from "@mui/icons-material";
 import axios from "axios";
 const FileUpload = () => {
   const [file, setFile] = React.useState("");
-  
+
   const handleClick = async (e) => {
     e.preventDefault();
     // setFile(e.target.files[0]);
@@ -42,7 +42,7 @@ const FileUpload = () => {
           class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
           type="file"
           placeholder="Upload your file"
-          onchange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => setFile(e.target.files[0])}
         />
       </div>
 

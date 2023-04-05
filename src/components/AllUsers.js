@@ -86,7 +86,6 @@ const AllUsers = () => {
                       </td>
                       <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300"></td>
                     </tr>
-                   
                   </tbody>
                 ))}
               </table>
