@@ -1,7 +1,26 @@
 import React from "react";
 import axios from "axios";
+import { Context } from "../context/AuthContext";
 const AllUsers = () => {
+  const { user } = React.useContext(Context);
+  console.log("User", user);
   const [users, setUsers] = React.useState([]);
+
+  // Delete
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    await axios
+      .delete(`http://localhost:5000/api/auth/delete-user/${id}`, {
+        data: { id: user.id },
+      })
+      .then((res) => {
+        console.log(res);
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   React.useEffect(() => {
     axios
       .get("http://localhost:5000/api/auth/get-all-users")
@@ -56,6 +75,9 @@ const AllUsers = () => {
                     >
                       Role
                     </th>
+                    <th scope="col" class="relative py-3.5 px-4">
+                      <span class="sr-only">Edit</span>
+                    </th>
                   </tr>
                 </thead>
                 {/* Table Body */}
@@ -85,6 +107,15 @@ const AllUsers = () => {
                         </span>
                       </td>
                       <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300"></td>
+                      <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a
+                          onClick={(e) => handleDelete(e, user._id)}
+                          href="#"
+                          class="text-gray-500 dark:text-gray-300 hover:text-indigo-600"
+                        >
+                          Delete
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 ))}
